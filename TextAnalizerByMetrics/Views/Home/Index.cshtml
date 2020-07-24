@@ -1,0 +1,39 @@
+﻿@model TextAnalizerViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="mainField">
+    <div>
+        <h1 class="display-4">Welcome to text analizer</h1>
+        <form action="Home" method="get">
+            @if (Model.InputText != null)
+            {
+                <textarea class="inputText" name="inputText" cols="95" rows="5">@Model.InputText</textarea>
+            }
+            else
+            {
+                <textarea class="inputText" name="inputText" cols="95" rows="5" placeholder="Введите, пожалуйста, текст."></textarea>
+            }
+
+            <div class="calculateMetrics">
+                <input type="submit" value="Рассчитать метрики" />
+            </div>
+        </form>
+    </div>
+    <div>Количество повторений слов в тексте: </div>
+    <div class="metrics">
+        @if (Model.Metrics.Count() > 0 && Model != null)
+        {
+            foreach (var metrics in Model.Metrics)
+            {
+                foreach (var mValues in metrics.MetricValues)
+                {
+                    <div class="word">
+                        "@mValues.Key" - @mValues.Value
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
